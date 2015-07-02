@@ -105,7 +105,7 @@
 
 							<div class="row">
 
-								<form class="sb-form" role="form" id="mailgun" method="POST">
+								<form class="sb-form" role="form" id="mailgun">
 									<div class="form-group">
 										<label class="sr-only" for="email">Email address</label>
 										<input type="email" class="form-control" id="email" name="email" placeholder="Enter your email">
@@ -115,47 +115,51 @@
 								<div id="result"></div>
 
 								<script>
-								var mailgunURL;
+								$(document).ready(function() {
+									var mailgunURL;
 
-								mailgunURL = window.location.protocol + "//" + window.location.hostname + '/mailgun.php';
+									mailgunURL = window.location.protocol + "//" + window.location.hostname + '/mailgun.php';
 
-								console.log(mailgunURL);
+									console.log(mailgunURL);
 
-								$('#mailgun').on('submit',function(e) {
-								  e.preventDefault();
+									$('#mailgun').on('submit',function(e) {
+									  e.preventDefault();
 
-								  $('#mailgun *').fadeOut(200);
-								  $('#mailgun').prepend('Your submission is being processed...');
+									  $('#mailgun *').fadeOut(200);
+									  $('#mailgun').prepend('Your submission is being processed...');
 
-								  $.ajax({
-								    type     : 'POST',
-								    cache    : false,
-								    url      : mailgunURL,
-								    data     : $(this).serialize(),
-								    success  : function(data) {
-								      responseSuccess(data);
-								      console.log(data);
-								    },
-								    error  : function(data) {
-								      console.log('Silent failure.');
-								    }
-								  });
+									  $.ajax({
+									    type     : 'POST',
+									    cache    : false,
+									    url      : mailgunURL,
+									    data     : $(this).serialize(),
+									    success  : function(data) {
+									      responseSuccess(data);
+									      console.log(data);
+									    },
+									    error  : function(data) {
+									      console.log('Silent failure.');
+									    }
+									  });
 
-								  return false;
+									  return false;
+
+									});
+
+									function responseSuccess(data) {
+
+									  data = JSON.parse(data);
+
+									  if(data.status === 'success') {
+									    $('#mailgun').html('Submission sent succesfully.');
+									  } else {
+									    $('#mailgun').html('Submission failed, please contact directly.');
+									  }
+
+									}
 
 								});
 
-								function responseSuccess(data) {
-
-								  data = JSON.parse(data);
-
-								  if(data.status === 'success') {
-								    $('#mailgun').html('Submission sent succesfully.');
-								  } else {
-								    $('#mailgun').html('Submission failed, please contact directly.');
-								  }
-
-								}
 								</script>
 
 							</div>
