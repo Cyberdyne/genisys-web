@@ -1,3 +1,4 @@
+<?php
 if(empty($_POST) || !isset($_POST)) {
 
   ajaxResponse('error', 'Post cannot be empty.');
@@ -73,3 +74,4 @@ function sendMailgun($data) {
   return $result;
 
 }
+?>
