@@ -51,27 +51,69 @@
         */
         new WOW().init();
 
+        var mailgunURL;
+
+        mailgunURL = window.location.protocol + "//" + window.location.hostname + '/mailgun.php';
+
+        $('#mailgun').on('submit',function(e) {
+          e.preventDefault();
+
+          $('#mailgun *').fadeOut(200);
+          $('#mailgun').prepend('Your submission is being processed...');
+
+          $.ajax({
+            type     : 'POST',
+            cache    : false,
+            url      : mailgunURL,
+            data     : $(this).serialize(),
+            success  : function(data) {
+              responseSuccess(data);
+              console.log(data);
+            },
+            error  : function(data) {
+              console.log('Silent failure.');
+            }
+          });
+
+          return false;
+
+        });
+
+        function responseSuccess(data) {
+
+          data = JSON.parse(data);
+
+          if(data.status === 'success') {
+            $('#mailgun').html('Submission sent succesfully.');
+          } else {
+            $('#mailgun').html('Submission failed, please contact directly.');
+          }
+
+        }
+
+
+
         /*
         * Google Map
         */
-        map = new GMaps({
-            el: '#map',
-            scrollwheel: false,
-            disableDefaultUI: true,
-            lat: -12.043333,
-            lng: -77.028333,
-            styles: [{"elementType":"geometry","stylers":[{"hue":"#ff4400"},{"saturation":-68},{"lightness":-4},{"gamma":0.72}]},{"featureType":"road","elementType":"labels.icon"},{"featureType":"landscape.man_made","elementType":"geometry","stylers":[{"hue":"#0077ff"},{"gamma":3.1}]},{"featureType":"water","stylers":[{"hue":"#00ccff"},{"gamma":0.44},{"saturation":-33}]},{"featureType":"poi.park","stylers":[{"hue":"#44ff00"},{"saturation":-23}]},{"featureType":"water","elementType":"labels.text.fill","stylers":[{"hue":"#007fff"},{"gamma":0.77},{"saturation":65},{"lightness":99}]},{"featureType":"water","elementType":"labels.text.stroke","stylers":[{"gamma":0.11},{"weight":5.6},{"saturation":99},{"hue":"#0091ff"},{"lightness":-86}]},{"featureType":"transit.line","elementType":"geometry","stylers":[{"lightness":-48},{"hue":"#ff5e00"},{"gamma":1.2},{"saturation":-23}]},{"featureType":"transit","elementType":"labels.text.stroke","stylers":[{"saturation":-64},{"hue":"#ff9100"},{"lightness":16},{"gamma":0.47},{"weight":2.7}]}]
-
-        });
-
-        map.addMarker({
-            lat: -12.044333,
-            lng: -77.028333,
-            title: 'We are here',
-            infoWindow: {
-                content: '<p><strong>We are here</strong><br/>Welcome</p>'
-            }
-        });
+        // map = new GMaps({
+        //     el: '#map',
+        //     scrollwheel: false,
+        //     disableDefaultUI: true,
+        //     lat: -12.043333,
+        //     lng: -77.028333,
+        //     styles: [{"elementType":"geometry","stylers":[{"hue":"#ff4400"},{"saturation":-68},{"lightness":-4},{"gamma":0.72}]},{"featureType":"road","elementType":"labels.icon"},{"featureType":"landscape.man_made","elementType":"geometry","stylers":[{"hue":"#0077ff"},{"gamma":3.1}]},{"featureType":"water","stylers":[{"hue":"#00ccff"},{"gamma":0.44},{"saturation":-33}]},{"featureType":"poi.park","stylers":[{"hue":"#44ff00"},{"saturation":-23}]},{"featureType":"water","elementType":"labels.text.fill","stylers":[{"hue":"#007fff"},{"gamma":0.77},{"saturation":65},{"lightness":99}]},{"featureType":"water","elementType":"labels.text.stroke","stylers":[{"gamma":0.11},{"weight":5.6},{"saturation":99},{"hue":"#0091ff"},{"lightness":-86}]},{"featureType":"transit.line","elementType":"geometry","stylers":[{"lightness":-48},{"hue":"#ff5e00"},{"gamma":1.2},{"saturation":-23}]},{"featureType":"transit","elementType":"labels.text.stroke","stylers":[{"saturation":-64},{"hue":"#ff9100"},{"lightness":16},{"gamma":0.47},{"weight":2.7}]}]
+        //
+        // });
+        //
+        // map.addMarker({
+        //     lat: -12.044333,
+        //     lng: -77.028333,
+        //     title: 'We are here',
+        //     infoWindow: {
+        //         content: '<p><strong>We are here</strong><br/>Welcome</p>'
+        //     }
+        // });
 
 	});
 
