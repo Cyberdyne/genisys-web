@@ -39,21 +39,24 @@ function sendMailgun($data) {
   $api_domain = 'genisys.io';
   $send_to = 'chris@matthieu.us';
 
-  $name = $data['name'];
+  // $name = $data['name'];
   $email = $data['email'];
-  $content = $data['message'];
+  // $content = $data['message'];
 
-  $messageBody = "Contact: $name ($email)\n\nMessage: $content";
+  // $messageBody = "Contact: $name ($email)\n\nMessage: $content";
+  $messageBody = "Genisys subscriber: $email";
 
   $config = array();
   $config['api_key'] = $api_key;
-  $config['api_url'] = 'https://api.mailgun.net/v2/'.$api_domain.'/messages';
+  // $config['api_url'] = 'https://api.mailgun.net/v2/'.$api_domain.'/messages';
+  $config['api_url'] = 'https://api.mailgun.net/v3/'.$api_domain.'/messages';
 
   $message = array();
   $message['from'] = $email;
   $message['to'] = $send_to;
   $message['h:Reply-To'] = $email;
-  $message['subject'] = $data['subject'];
+  // $message['subject'] = $data['subject'];
+  $message['subject'] = 'Genisys Subscriber!';
   $message['text'] = $messageBody;
 
   $curl = curl_init();
