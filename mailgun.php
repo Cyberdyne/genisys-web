@@ -36,7 +36,7 @@ function ajaxResponse($status, $message, $data = NULL, $mg = NULL) {
 function sendMailgun($data) {
 
   $api_key = 'key-251e44030015d9690768cc872bf8025d';
-  $api_domain = 'subscriptions@genisys.io';
+  $api_domain = 'genisys.io';
   $send_to = 'chris@matthieu.us';
 
   $name = $data['name'];
