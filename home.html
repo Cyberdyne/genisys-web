@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+	<title>Genisys</title>
+
+	<!-- Google Fonts -->
+	<link href='http://fonts.googleapis.com/css?family=Bitter:400,700,400italic' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,400,300' rel='stylesheet' type='text/css'>
+
+	<!-- CSS -->
+	<!-- Bootstrap core CSS -->
+	<link href="assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+	<!-- Font Awesome CSS -->
+	<link href="assets/css/font-awesome.min.css" rel="stylesheet" media="screen">
+	<!-- Animate css -->
+	<link href="assets/css/animate.css" rel="stylesheet" media="screen">
+	<!-- Custom styles CSS -->
+	<link href="assets/css/style.css" rel="stylesheet" media="screen">
+</head>
+<body>
+
+	<!-- Preloader -->
+	<div id="preloader">
+		<div id="status"></div>
+	</div>
+
+	<div class="wrapper">
+		<div id="coming-soon" class="coming-soon">
+			<div class="container">
+				<div class="row">
+
+					<div class="col-md-12">
+						<div class="site-title">
+							<h1><img src="assets/images/477.GIF"/> Genisys</h1>
+						</div>
+					</div>
+
+					<div class="col-md-8 col-md-offset-2">
+						<div class="site-lead">
+							<p>Our new killer app is almost ready for launch. In the meantime why not <a href="#contact">subscribe</a> to our newsletter, and we'll tell you when it's done.</p>
+						</div>
+					</div>
+
+					<div class="col-md-12">
+						<div id="countdown"></div>
+					</div>
+
+					<div class="col-md-12">
+						<p><a class="scroll-down" href="#about"><i class="fa fa-angle-double-down"></i></a></p>
+					</div>
+
+				</div><!-- .row -->
+			</div><!-- .container -->
+		</div><!-- #coming-soon -->
+
+
+
+		<div id="about" class="section light">
+			<div class="container">
+				<div class="row">
+
+					<div class="col-md-12">
+						<div class="title">
+							<h2>Meet Genisys</h2>
+						</div>
+					</div>
+
+
+
+					<div class="col-md-6 wow slideInLeft animated">
+						<div class="video">
+						  <iframe src="http://player.vimeo.com/video/9221389?title=0&amp;byline=0&amp;portrait=0&amp;color=ffffff" width="500" height="281" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+						</div>
+					</div>
+
+					<div class="col-md-6 wow slideInRight animated">
+						<h3>The smartest communications app ever built.</h3>
+
+						<p>Genisys will revolutionalize the way we connect and communicate with each other and the things around us. </p>
+
+						<p>For the first time in our lives, computers will be put to work to make our lives easier and keep us better connected.</p>
+
+						<p><a href="#contact">Subscribe</a> to our mailing list to stay informed of important updates in the coming months.</p>
+					</div>
+
+				</div><!-- .row -->
+			</div><!-- .container -->
+		</div><!-- #about -->
+
+		<div id="contact" class="section dark faq">
+
+					<div class="subscribe wow fadeInUp animated">
+						<div class="container">
+
+							<div class="col-md-12">
+								<div class="title">
+									<h2>Stay Informed...</h2>
+								</div>
+							</div>
+
+							<div class="row">
+
+								<form class="sb-form" role="form" id="mailgun">
+									<div class="form-group">
+										<label class="sr-only" for="email">Email address</label>
+										<input type="email" class="form-control" id="email" placeholder="Enter your email">
+									</div>
+									<button type="submit" class="btn btn-default">Subscribe</button>
+								</form>
+								<div id="result"></div>
+
+								<script>
+								var mailgunURL;
+
+								mailgunURL = window.location.protocol + "//" + window.location.hostname + '/mailgun.php';
+
+								$('#mailgun').on('submit',function(e) {
+								  e.preventDefault();
+
+								  $('#mailgun *').fadeOut(200);
+								  $('#mailgun').prepend('Your submission is being processed...');
+
+								  $.ajax({
+								    type     : 'POST',
+								    cache    : false,
+								    url      : mailgunURL,
+								    data     : $(this).serialize(),
+								    success  : function(data) {
+								      responseSuccess(data);
+								      console.log(data);
+								    },
+								    error  : function(data) {
+								      console.log('Silent failure.');
+								    }
+								  });
+
+								  return false;
+
+								});
+
+								function responseSuccess(data) {
+
+								  data = JSON.parse(data);
+
+								  if(data.status === 'success') {
+								    $('#mailgun').html('Submission sent succesfully.');
+								  } else {
+								    $('#mailgun').html('Submission failed, please contact directly.');
+								  }
+
+								}
+								</script>
+
+							</div>
+						</div>
+					</div>
+					<br /><br /><br /><br /><br />
+
+		</div><!-- #faq -->
+
+		<div class="footer">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12">
+						<p>© cyberdyne.ai</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div><!-- .wrapper -->
+
+	<!-- Javascript files -->
+	<!-- jQuery -->
+	<script src="assets/js/jquery-1.11.1.min.js"></script>
+	<!-- Bootstrap JS -->
+	<script src="assets/bootstrap/js/bootstrap.min.js"></script>
+	<!-- Countdown -->
+	<script src="assets/js/jquery.countdown.min.js"></script>
+	<!-- Resp. video -->
+	<script src="assets/js/jquery.fitvids.js"></script>
+	<!-- Backstretch - Fullscreen Backgrounds and Slideshows -->
+	<script src="assets/js/jquery.backstretch.min.js"></script>
+	<!-- WOW - Reveal Animations When You Scroll -->
+	<script src="assets/js/wow.min.js"></script>
+	<!-- Google Maps -->
+	<script src="http://maps.google.com/maps/api/js?sensor=true"></script>
+	<script src="assets/js/gmaps.js"></script>
+	<!-- Custom scripts -->
+	<script src="assets/js/custom.js"></script>
+
+</body>
+</html>
